@@ -19,7 +19,7 @@ require(['mockup-utils', '//d3js.org/d3.v3.min.js'], function(utils, d3) {
       .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    d3.json("../../@@rapido/rating/search")
+    d3.json("../@@rapido/rating/search")
     .header("X-Csrf-Token", authenticator)
     .post(
         JSON.stringify({"query": "total>0"}),
