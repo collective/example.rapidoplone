@@ -1,0 +1,3 @@
+view:
+    id: show-report
+    with_theme: true

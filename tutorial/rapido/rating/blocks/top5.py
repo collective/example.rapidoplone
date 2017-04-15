@@ -3,9 +3,9 @@ def top(context):
     html = "<ul>"
     for record in search:
         content = context.api.content.get(path=record["id"])
-        html += '<li><a href="%s">%s</a> %d ❤</li>' % (
+        html += '<li><a href="%s">%s</a> %d &#10084;</li>' % (
             content.absolute_url(),
             content.title,
-            record["total"]) 
+            record["total"])
     html += "</ul>"
     return html

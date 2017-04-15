@@ -6,6 +6,7 @@ def like(context):
     total = record.get('total', 0)
     total += 1
     record['total'] = total
+    record.save(block_id='rate')
     record.reindex()
 
 def display(context):
@@ -14,4 +15,4 @@ def display(context):
     if not record:
         return ''
     context.app.log(record.items())
-    return "❤" * record.get('total', 0)
+    return "&#10084;" * record.get('total', 0)
