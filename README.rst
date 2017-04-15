@@ -16,6 +16,6 @@ This application is taken from the rapido.plone tutorial URL >>> http://rapidopl
 Chart Pie Report App
 ====================
 
-The Chart Pie Report app, is D3.js Chart Pie app render into Plone. The objective is to draw a Chart Pie reading data from CSV file.
+The Chart Pie app, is D3.js Chart to render into Plone. The objective is to draw a Chart Pie reading the data from a CSV file.
 
 This application is taken from the Pie Chart Demo URL >>> https://bl.ocks.org/mbostock/3887235
