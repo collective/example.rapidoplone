@@ -19,3 +19,7 @@ Chart Pie Report App
 The Chart Pie app, is D3.js Chart to render into Plone. The objective is to draw a Chart Pie reading the data from a CSV file.
 
 This application is taken from the Pie Chart Demo URL >>> https://bl.ocks.org/mbostock/3887235
+
+You can visit for the Chart Pie Report App in the following link:
+
+http://localhost:8080/Plone/@@show-chart-pie
