@@ -1,0 +1,10 @@
+target: ajax
+elements:
+    like:
+        type: ACTION
+        label: Like
+    display:
+        type: BASIC
+    total:
+        type: NUMBER
+        index_type: field
