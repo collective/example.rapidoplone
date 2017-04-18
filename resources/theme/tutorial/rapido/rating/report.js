@@ -6,18 +6,19 @@
  * - D3js (and we load it by passing its remote URL to RequireJS).
  */
 require(['mockup-utils', '//d3js.org/d3.v3.min.js'], function(utils, d3) {
-    /* mockup-utils allows us to get the authenticator token
+    /* Get the Plone getAuthenticator method
+     * mockup-utils allows us to get the authenticator token
      * (with the getAuthenticator method), we need it to use
      * the Rapido REST API.
      */
-    // Get the Plone getAuthenticator method
     var authenticator = utils.getAuthenticator();
     // Get the local folders path
     var local_folder_path = location.pathname.split('/@@rapido')[0];
+    // Get SVG element from the rapido block html named 'report.html'
     var width = 960,
         height = 500,
         radius = Math.min(width, height) / 2;
-    
+
     /* d3.js Arc Generator
      * Generates path data for an arc (typically for pie charts).
      */
@@ -32,27 +33,24 @@ require(['mockup-utils', '//d3js.org/d3.v3.min.js'], function(utils, d3) {
         .sort(null)
         .value(function(d) { return d.value; });
     
-    // Get DIV element and add a SVG element from the rapido block html named 'report.html'
     var svg = d3.select("#chart").append("svg")
         .attr("width", width)
         .attr("height", height)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // d3.json() calls the Rapido endpoint @@rapido/rating/search (a rest api endpoint)
-    d3.json("../@@rapido/rating/search")
-    // d3.json() puts the authenticator token in the X-Csrf-Token header
-    .header("X-Csrf-Token", authenticator)
-    // and d3.json() passes the search query in the request BODY.
-    .post(
-        JSON.stringify({"query": "total>0"}),
-        function(err, results) {
-            console.log(results);
-            var data = [];
-            var color = d3.scale.linear().domain([0,results.length]).range(["#005880","#9abdd6"]);
-            var index = 0;
-            results.forEach(function(d) {
-                if(d.items.id.startsWith(local_folder_path)) {
+    d3.json("@@rapido/rating/search")
+        // d3.json() puts the authenticator token in the X-Csrf-Token header,
+        .header("X-Csrf-Token", authenticator)
+        // and d3.json() passes the search query in the request BODY.
+        .post(
+            JSON.stringify({"query": "total>0"}),
+            function(err, results) {
+                var data = [];
+                var color = d3.scale.linear().domain([0,results.length]).range(["#005880","#9abdd6"]);
+                var index = 0;
+                results.forEach(function(d) {
                     var label = d.items.id.split('/')[d.items.id.split('/').length - 1];
                     data.push({
                         'i': index,
@@ -60,27 +58,29 @@ require(['mockup-utils', '//d3js.org/d3.v3.min.js'], function(utils, d3) {
                         'label': label
                     });
                     index += 1;
-                }
-            });
+                });
 
-            // add arc element
-            var g = svg.selectAll(".arc")
-              .data(pie(data))
-            .enter().append("g")
-              .attr("class", "arc");
+                // add arc element
+                var g = svg.selectAll(".arc")
+                    // call pie() function
+                    .data(pie(data))
+                    // add g element
+                    .enter().append("g")
+                    .attr("class", "arc");
             
-            // add path element
-            g.append("path")
-              .attr("d", arc)
-              .style("fill", function(d) { return color(d.data.i); });
+                // add path element
+                g.append("path")
+                    .attr("d", arc)
+                    .style("fill", function(d) { return color(d.data.i); });
             
-            // add text element
-            g.append("text")
-              .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-              .attr("dy", ".35em")
-              .style("text-anchor", "middle")
-              .text(function(d) { return d.data.label; })
-              .style("fill", "white");
-        }
-    );
+                // add text element
+                g.append("text")
+                    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "middle")
+                    .text(function(d) { return d.data.label; })
+                    .style("fill", "white");
+            }
+        );
 });
+
