@@ -1,0 +1,9 @@
+target: ajax
+view:
+    id: glossary
+    with_theme: true
+elements:
+    list: BASIC
+    new_term:
+        type: ACTION
+        label: Add term

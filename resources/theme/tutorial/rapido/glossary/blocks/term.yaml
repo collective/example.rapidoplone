@@ -1,0 +1,13 @@
+target: ajax
+elements:
+    term: TEXT
+    definition: TEXT
+    close:
+        type: ACTION
+        label: Close
+    _save:
+        type: ACTION
+        label: Save
+    _delete:
+        type: ACTION
+        label: Delete

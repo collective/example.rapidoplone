@@ -22,4 +22,15 @@ This application is taken from the Pie Chart Demo URL >>> https://bl.ocks.org/mb
 
 You can visit for the Chart Pie Report App in the following link:
 
-http://localhost:8080/Plone/@@show-chart-pie
+    http://localhost:8080/Plone/@@show-chart-pie
+
+Glossary App
+============
+
+The Glossary app, is a tool to manage a list of terms and their definitions.
+
+This application is taken from the rapido.plone tutorial URL >>> http://rapidoplone.readthedocs.io/en/latest/use-cases/glossary.html
+
+You can visit for the Glossary App in the following link:
+
+    http://localhost:8080/Plone/@@glossary
